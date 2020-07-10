@@ -1,0 +1,29 @@
+steps:
+  - dataFrameName: comedyFantasyRomanceSciFiMovies
+    sql:
+      SELECT title
+      FROM movies
+      WHERE genres='Comedy|Fantasy|Romance|Sci-Fi'
+  - dataFrameName: comedyFantasyRomanceSciFiMoviesAddColumn
+    sql:
+      SELECT *, "test" as new_column
+      FROM comedyFantasyRomanceSciFiMovies
+output:
+  - dataFrameName: comedyFantasyRomanceSciFiMovies
+    outputType: Parquet
+    outputOptions:
+      saveMode: Overwrite
+      path: comedyFantasyRomanceSciFiMovies.parquet
+      tableName: testMetorikkuHiveExternal
+      protectFromEmptyOutput: true
+  - dataFrameName: comedyFantasyRomanceSciFiMoviesAddColumn
+    outputType: Parquet
+    outputOptions:
+      saveMode: Overwrite
+      path: comedyFantasyRomanceSciFiMovies.parquet
+      tableName: testMetorikkuHiveExternal
+  - dataFrameName: comedyFantasyRomanceSciFiMovies
+    outputType: Parquet
+    outputOptions:
+      saveMode: Overwrite
+      tableName: testMetorikkuHiveManaged
