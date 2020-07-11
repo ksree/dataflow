@@ -5,6 +5,8 @@ import java.io.File
 import com.fasterxml.jackson.databind.{DeserializationFeature, ObjectMapper}
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory
 import com.fasterxml.jackson.module.scala.DefaultScalaModule
+import com.ksr.dataflow.configuration.input.{JDBC, Kafka}
+import com.ksr.dataflow.input.Reader
 
 case class Configuration(inputs: Option[Map[String, Input]],
                          transformations: Option[Seq[String]],
@@ -13,18 +15,7 @@ case class Configuration(inputs: Option[Map[String, Input]],
                          showPreviewLines: Option[Int],
                          appName: Option[String])
 
-case class Input(file: Option[File],
-                 jdbc: Option[JDBC],
-                 kafka: Option[Kafka],
-                 cassandra: Option[Cassandra],
-                 elasticsearch: Option[Elasticsearch],
-                 mongo: Option[MongoDB]) extends InputConfig {
-  def getReader(name: String): Reader = {
-    Seq(file, fileDateRange, jdbc, kafka, cassandra, elasticsearch, mongo).find(
-      x => x.isDefined
-    ).get.get.getReader(name)
-  }
-}
+
 case class Output(name: String, format: String, path: String)
 
 object Configuration {
