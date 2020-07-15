@@ -1,6 +1,5 @@
-package com.ksr.dataflow.configuration.input
+package com.ksr.dataflow.configuration.job.input
 
-import com.ksr.dataflow.configuration.InputConfig
 import com.ksr.dataflow.input.Reader
 
 //TODO :  Provide implementation

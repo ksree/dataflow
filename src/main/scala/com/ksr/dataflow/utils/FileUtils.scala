@@ -6,8 +6,11 @@ import java.util.stream.Collectors
 import com.fasterxml.jackson.databind.{DeserializationFeature, ObjectMapper}
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory
 import org.apache.commons.io.FilenameUtils
+import org.apache.commons.text.StringSubstitutor
 import org.apache.hadoop.fs.{FSDataInputStream, FileSystem, Path}
 import org.apache.spark.sql.SparkSession
+
+import scala.collection.JavaConverters._
 
 
 case class HadoopPath(path: Path, fs: FileSystem) {
@@ -54,8 +57,6 @@ object FileUtils {
     val fileContents = readFileWithHadoop(prefix + path)
     StringSubstitutor.replace(fileContents, envAndSystemProperties.asJava)
   }
-
-
 
   def getHadoopPath(path: String): HadoopPath = {
     val hadoopConf = SparkSession.builder().getOrCreate().sessionState.newHadoopConf()

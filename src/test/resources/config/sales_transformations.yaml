@@ -1,13 +1,14 @@
 steps:
-  - dataFrameName: comedyFantasyRomanceSciFiMovies
+  - dataFrameName: USSales
     sql:
-      SELECT title
-      FROM movies
-      WHERE genres='Comedy|Fantasy|Romance|Sci-Fi'
-  - dataFrameName: comedyFantasyRomanceSciFiMoviesAddColumn
+      SELECT *
+      FROM sales
+      WHERE Country='United States'
+  - dataFrameName: UKSales
     sql:
-      SELECT *, "test" as new_column
-      FROM comedyFantasyRomanceSciFiMovies
+      SELECT *
+      FROM sales
+      WHERE Country='United Kingdom'
 output:
   - dataFrameName: comedyFantasyRomanceSciFiMovies
     outputType: Parquet

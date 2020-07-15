@@ -1,17 +1,16 @@
 inputs:
-  input_1:
+  sales:
     file:
          # The path of the file, you can add multiple files with ,
-         path: json/input_2.csv
-         # Optional, if omitted we'll guess by the extension (fallback to parquet)
+         path: target/test-classes/data/csv/
          format: csv
          # Optional, define custom schema via a json schema file (https://json-schema.org/)
-         schemaPath: schema/schema.json
+         #schemaPath: schema/schema.json
          # Optional send any spark supported option to the reader
          options:
            quoteAll: false
 transformations:
-  - examples/hive/movies_transform.yaml
+  - config/sales_transform.yaml
 
 outputs:
  - name: movies
@@ -21,7 +20,7 @@ outputs:
 # Set Log Level : ALL, DEBUG, ERROR, FATAL, INFO, OFF, TRACE, WARN
 logLevel: WARN
 
-showPreviewLines: 10
+showPreviewLines: 5
 
 # Set Application Name to have app name prefix in spark instrumentation counters
-appName: moviesApp
+appName: TransactionsApp
