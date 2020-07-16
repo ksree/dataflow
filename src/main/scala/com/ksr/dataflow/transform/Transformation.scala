@@ -5,10 +5,9 @@ import java.io.File
 import com.ksr.dataflow.Job
 import com.ksr.dataflow.configuration.transform.{Configuration, Output}
 import com.ksr.dataflow.exceptions.{DataFlowFailedStepException, DataFlowWriteFailedException}
+import com.ksr.dataflow.output.{Writer, WriterFactory}
 import org.apache.log4j.LogManager
 import org.apache.spark.sql.DataFrame
-
-import scala.collection.mutable
 
 case class Transformation(configuration: Configuration, transformationDir: Option[File], transformationName: String) {
   val log = LogManager.getLogger(this.getClass)
@@ -96,9 +95,6 @@ case class Transformation(configuration: Configuration, transformationDir: Optio
 
           writeBatch(dataFrame, dataFrameName, writer, outputConfig, job.config.cacheCountOnOutput)
         })
-
-        for ((dataFrameName, streamingConfig) <- streamingWriterList) writeStream(dataFrameName,
-          streamingConfig.streamingWritingConfiguration, job.config.streaming, job.instrumentationClient)
 
       }
       case None =>

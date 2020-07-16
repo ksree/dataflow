@@ -1,6 +1,6 @@
 package com.ksr.dataflow.configuration
 
-import com.ksr.dataflow.configuration.job.input.Configuration
+import com.ksr.dataflow.configuration.job.Configuration
 import org.scalatest.FlatSpec
 
 class ConfigurationTest extends FlatSpec {

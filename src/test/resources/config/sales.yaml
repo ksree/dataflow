@@ -2,7 +2,7 @@ inputs:
   sales:
     file:
          # The path of the file, you can add multiple files with ,
-         path: target/test-classes/data/csv/
+         path: src/test/resources/data/sales/
          format: csv
          # Optional, define custom schema via a json schema file (https://json-schema.org/)
          #schemaPath: schema/schema.json
@@ -10,17 +10,20 @@ inputs:
          options:
            quoteAll: false
 transformations:
-  - config/sales_transform.yaml
+  - src/test/resources/config/sales_transformations.yaml
 
-outputs:
- - name: movies
-   format: file
-   path: /examples/output
+output:
+  file:
+    dir: target/test-classes/output/sales/
+
+# If set to true, triggers Explain before saving
+explain: true
 
 # Set Log Level : ALL, DEBUG, ERROR, FATAL, INFO, OFF, TRACE, WARN
 logLevel: WARN
 
-showPreviewLines: 5
-
 # Set Application Name to have app name prefix in spark instrumentation counters
 appName: TransactionsApp
+
+# Shows a Preview of the output
+showPreviewLines: 5

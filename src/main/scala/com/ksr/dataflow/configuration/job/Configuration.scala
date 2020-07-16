@@ -5,12 +5,12 @@ import java.io.File
 import com.fasterxml.jackson.databind.{DeserializationFeature, ObjectMapper}
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory
 import com.fasterxml.jackson.module.scala.DefaultScalaModule
-import com.ksr.dataflow.configuration.job.input.Input
 import com.ksr.dataflow.input.Reader
 
 case class Configuration(inputs: Option[Map[String, Input]],
                          transformations: Option[Seq[String]],
-                         outputs: Option[List[Output]],
+                         output: Option[Output],
+                         outputs: Option[Map[String, Output]],
                          cacheOnPreview: Option[Boolean],
                          showQuery: Option[Boolean],
                          logLevel: Option[String],
@@ -22,8 +22,6 @@ case class Configuration(inputs: Option[Map[String, Input]],
     case (name, input) => input.getReader(name)
   }.toSeq
 }
-
-case class Output(name: String, format: String, path: String)
 
 object Configuration {
   def apply(configPath: String): Configuration = {

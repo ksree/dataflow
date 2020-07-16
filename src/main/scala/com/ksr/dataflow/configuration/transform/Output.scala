@@ -22,16 +22,9 @@ object OutputType extends Enumeration {
   Cassandra,
   CSV,
   JSON,
-  Redshift,
-  Redis,
-  Segment,
-  Instrumentation,
   JDBC,
-  JDBCQuery,
-  Elasticsearch,
   File,
-  Kafka,
-  Hudi = Value
+  Kafka = Value
 }
 
 class OutputTypeReference extends TypeReference[OutputType.type]

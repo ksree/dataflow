@@ -1,5 +1,6 @@
-package com.ksr.dataflow.configuration.job.input
+package com.ksr.dataflow.configuration.job
 
+import com.ksr.dataflow.configuration.job.input.{File, JDBC, Kafka}
 import com.ksr.dataflow.input.Reader
 
 case class Input(file: Option[File], jdbc: Option[JDBC], kafka: Option[Kafka]) extends InputConfig {

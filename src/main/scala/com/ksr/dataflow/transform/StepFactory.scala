@@ -3,7 +3,9 @@ package com.ksr.dataflow.transform
 import java.io.File
 
 import com.ksr.dataflow.configuration.transform.Step
-import com.ksr.dataflow.transform.stepActions.Sql
+import com.ksr.dataflow.exceptions.DataFlowException
+import com.ksr.dataflow.transform.stepActions.{Code, Sql}
+import com.ksr.dataflow.utils.FileUtils
 
 
 object StepFactory {
@@ -28,7 +30,7 @@ object StepFactory {
               case Some(cp) => {
                 Code(cp, metricName, configuration.dataFrameName, configuration.params)
               }
-              case None => throw MetorikkuException("Each step requires an SQL query or a path to a file (SQL/Scala)")
+              case None => throw DataFlowException("Each step requires an SQL query or a path to a file (SQL/Scala)")
             }
           }
         }
