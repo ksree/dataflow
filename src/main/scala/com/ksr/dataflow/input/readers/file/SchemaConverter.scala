@@ -1,4 +1,4 @@
-package com.ksr.dataflow.input.file
+package com.ksr.dataflow.input.readers.file
 
 import org.apache.spark.sql.types._
 import play.api.libs.json._

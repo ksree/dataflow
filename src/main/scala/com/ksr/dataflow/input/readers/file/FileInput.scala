@@ -1,4 +1,4 @@
-package com.ksr.dataflow.input.file
+package com.ksr.dataflow.input.readers.file
 
 import com.ksr.dataflow.input.Reader
 import org.apache.spark.sql.{DataFrame, SparkSession}
