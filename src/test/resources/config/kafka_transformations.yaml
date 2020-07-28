@@ -1,0 +1,22 @@
+steps:
+  - dataFrameName: SalesInNorthAmerica
+    sql:
+      SELECT *
+      FROM transactions
+      WHERE region='NA'
+  - dataFrameName: SalesInEurope
+    sql:
+      SELECT *
+      FROM transactions
+      WHERE region='EU'
+output:
+  - dataFrameName: SalesInEurope
+    outputType: Parquet
+    outputOptions:
+      saveMode: Append
+      path: salesinnorthamerica.parquet
+  - dataFrameName: salesineu
+    outputType: Parquet
+    outputOptions:
+      saveMode: Append
+      path: salesineu.parquet

@@ -4,6 +4,7 @@ import java.util
 
 import com.fasterxml.jackson.databind.{DeserializationFeature, ObjectMapper}
 import com.fasterxml.jackson.module.scala.DefaultScalaModule
+import com.ksr.dataflow.exceptions.DataFlowException
 import org.apache.kafka.clients.consumer.{KafkaConsumer, OffsetAndMetadata}
 import org.apache.kafka.common.TopicPartition
 import org.apache.spark.sql.streaming.StreamingQueryListener
@@ -40,7 +41,7 @@ class KafkaLagWriter(kafkaConsumer: KafkaConsumer[String, String], topic: String
                 topicPartitionMap.put(tp, oam)
               })
             case _ =>
-              throw MetorikkuException(s"could not fetch topic offsets")
+              throw DataFlowException(s"could not fetch topic offsets")
           }
           consumer.commitSync(topicPartitionMap)
         })

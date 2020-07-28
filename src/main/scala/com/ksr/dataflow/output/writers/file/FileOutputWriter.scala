@@ -36,7 +36,7 @@ class FileOutputWriter(props: Map[String, Object], outputFile: Option[File]) ext
 
   override def write(dataFrame: DataFrame): Unit = {
     val writer = dataFrame.write
-
+    log.info("In parquet writer")
     val currentTimestamp = System.currentTimeMillis()
     fileOutputProperties.format match {
       case Some(format) => writer.format(format)
@@ -113,11 +113,12 @@ class FileOutputWriter(props: Map[String, Object], outputFile: Option[File]) ext
         writer.save()
 
         protectFromEmptyOutput(ss, fileOutputProperties.protectFromEmptyOutput, fileOutputProperties.format, filePath, tableName)
-
+        println(catalog.listTables().collectAsList().toString)
+        println(catalog.listDatabases().collectAsList().toString)
         catalog.tableExists(tableName) match {
           // Quick overwrite (using alter table + refresh instead of drop + write + refresh)
           case true => {
-            overwriteExternalTable(ss=ss, tableName=tableName,
+            overwriteExternalTable(ss, tableName=tableName,
               dataFrame=dataFrame, filePath=filePath)
           }
           case false => {
@@ -132,8 +133,6 @@ class FileOutputWriter(props: Map[String, Object], outputFile: Option[File]) ext
           }
         }
         catalog.refreshTable(tableName)
-
-
       }
       case (Some(tableName), None) => {
         log.info(s"Writing managed table $tableName")

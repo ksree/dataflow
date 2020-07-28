@@ -7,5 +7,5 @@ case class Step(sql: Option[String],
                 params: Option[Map[String, String]],
                 var ignoreOnFailures: Option[Boolean]) {
 
-  ignoreOnFailures = Option(ignoreOnFailures.getOrElse(false))
+  ignoreOnFailures = Some(ignoreOnFailures.getOrElse(false))
 }

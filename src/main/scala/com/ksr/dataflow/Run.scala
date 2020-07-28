@@ -11,7 +11,7 @@ object Run {
     val configPath = args(0)
     log.info(s"Starting Dataflow job with configuration $configPath")
     val session = Job(Configuration(configPath))
-
+    runTransformations(session)
   }
 
   def runTransformations(job: Job): Unit = {

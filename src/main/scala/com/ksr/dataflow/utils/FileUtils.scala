@@ -1,6 +1,8 @@
 package com.ksr.dataflow.utils
 
-import java.io.{BufferedReader, File, FileNotFoundException, InputStreamReader}
+import java.io.{BufferedReader, File, FileInputStream, FileNotFoundException, IOException, InputStream, InputStreamReader}
+import java.nio.file.{Files, Paths}
+import java.util.Properties
 import java.util.stream.Collectors
 
 import com.fasterxml.jackson.databind.{DeserializationFeature, ObjectMapper}
@@ -82,5 +84,17 @@ object FileUtils {
 
   def isLocalFile(path: String): Boolean = {
     new File(path).isFile
+  }
+
+  @throws[IOException]
+  def loadConfig(configFile: String): Properties = {
+    if (!Files.exists(Paths.get(configFile))) throw new IOException(configFile + " not found.")
+    val cfg = new Properties
+    try {
+      val inputStream = new FileInputStream(configFile)
+      try cfg.load(inputStream)
+      finally if (inputStream != null) inputStream.close()
+    }
+    cfg
   }
 }

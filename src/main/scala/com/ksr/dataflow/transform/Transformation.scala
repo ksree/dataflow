@@ -3,11 +3,13 @@ package com.ksr.dataflow.transform
 import java.io.File
 
 import com.ksr.dataflow.Job
+import com.ksr.dataflow.configuration.job.Streaming
 import com.ksr.dataflow.configuration.transform.{Configuration, Output}
 import com.ksr.dataflow.exceptions.{DataFlowFailedStepException, DataFlowWriteFailedException}
 import com.ksr.dataflow.output.{Writer, WriterFactory}
 import org.apache.log4j.LogManager
-import org.apache.spark.sql.DataFrame
+import org.apache.spark.sql.catalog.Table
+import org.apache.spark.sql.{DataFrame, Dataset}
 
 case class Transformation(configuration: Configuration, transformationDir: Option[File], transformationName: String) {
   val log = LogManager.getLogger(this.getClass)
@@ -15,7 +17,7 @@ case class Transformation(configuration: Configuration, transformationDir: Optio
   def calculate(job: Job): Unit = {
     val tags = Map("transformation" -> transformationName)
     for (stepConfig <- configuration.steps) {
-      val step = StepFactory.getStepAction(stepConfig, transformationDir, transformationName, job.config.showPreviewLines.get,
+      val step = StepFactory.getStepAction(stepConfig, transformationDir, transformationName, job.config.showPreviewLines.getOrElse(0),
         job.config.cacheOnPreview, job.config.showQuery)
       try {
         log.info(s"Calculating step ${step.dataFrameName}")
@@ -71,17 +73,50 @@ case class Transformation(configuration: Configuration, transformationDir: Optio
     }
   }
 
+  private def writeStream(dataFrame: DataFrame,
+                          dataFrameName: String,
+                          streamingConfig: Option[Streaming],
+                          writer: Writer,
+                          outputConfig: Output): Unit = {
+    log.info(s"Starting to write streaming results of ${dataFrameName}")
+    streamingConfig match {
+      case Some(config) => {
+        val streamWriter = dataFrame.writeStream
+        config.applyOptions(streamWriter)
+        config.batchMode match {
+          case Some(true) => {
+            val query = streamWriter.foreachBatch((batchDF: DataFrame, _: Long) => {
+
+              writer.write(batchDF)
+            }).start()
+            query.awaitTermination()
+            // Exit this function after streaming is completed
+            return
+          }
+          case _ =>
+        }
+      }
+      case None =>
+    }
+    // Non batch mode
+    /*    writerConfig.writers.size match {
+          case size if size == 1 => writerConfig.writers.foreach(writer => writer.writeStream(writerConfig.dataFrame, streamingConfig))
+          case size if size > 1 => log.error("Found multiple outputs for a streaming source without using the batch mode, " +
+            "skipping streaming writing")
+          case _ =>
+        }*/
+  }
+
 
   def write(job: Job): Unit = {
-
+    val a: Dataset[Table] = job.sparkSession.catalog.listTables()
+    val b = a.collect()
     configuration.output match {
       case Some(output) => {
         output.foreach(outputConfig => {
           val writer = WriterFactory.get(outputConfig, transformationName, job.config, job)
           val dataFrameName = outputConfig.dataFrameName
           val dataFrame = repartition(outputConfig, job.sparkSession.table(dataFrameName))
-
-
           val outputOptions = Option(outputConfig.outputOptions).getOrElse(Map())
           outputOptions.get("protectFromEmptyOutput").asInstanceOf[Option[Boolean]] match {
             case Some(true) => {
@@ -92,8 +127,11 @@ case class Transformation(configuration: Configuration, transformationDir: Optio
             }
             case _ =>
           }
-
-          writeBatch(dataFrame, dataFrameName, writer, outputConfig, job.config.cacheCountOnOutput)
+          if (dataFrame.isStreaming) {
+            writeStream(dataFrame, dataFrameName, job.config.streaming, writer, outputConfig)
+          } else {
+            writeBatch(dataFrame, dataFrameName, writer, outputConfig, job.config.cacheCountOnOutput)
+          }
         })
 
       }

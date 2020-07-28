@@ -13,11 +13,16 @@ case class Configuration(inputs: Option[Map[String, Input]],
                          outputs: Option[Map[String, Output]],
                          cacheOnPreview: Option[Boolean],
                          showQuery: Option[Boolean],
+                         streaming: Option[Streaming],
                          logLevel: Option[String],
                          showPreviewLines: Option[Int],
                          appName: Option[String],
                          var continueOnFailedStep: Option[Boolean],
                          var cacheCountOnOutput: Option[Boolean]) {
+
+  continueOnFailedStep = Some(continueOnFailedStep.getOrElse(false))
+  cacheCountOnOutput = Some(cacheCountOnOutput.getOrElse(false))
+
   def getReaders: Seq[Reader] = inputs.getOrElse(Map()).map {
     case (name, input) => input.getReader(name)
   }.toSeq

@@ -1,16 +1,18 @@
-import com.ksr.dataflow.{Job, Run}
+package com.ksr.dataflow
+
 import com.ksr.dataflow.configuration.job.Configuration
-import org.scalatest.{BeforeAndAfterAll, BeforeAndAfterEach, FlatSpec, FunSuite}
+import org.apache.spark.sql.streaming.DataStreamWriter
+import org.scalatest.FlatSpec
 
-class RunTest extends FlatSpec {
+class RunKafkaTest extends FlatSpec {
 
-  val path: String = getClass.getResource("/config/sales.yaml").getPath
+  val path: String = getClass.getResource("/config/kafka.yaml").getPath
   val configuration: Configuration = Configuration(path)
   val session = Job(Configuration(path), "test")
 
   "run" should "create a new test session" in {
     assert(session.env === "test")
-    assert(session.config.appName.get === "TransactionsApp")
+    assert(session.config.appName.get === "KafkaApp")
   }
 
   "runTransformations" should "run the transformations specified in the transformations.yaml" in {
