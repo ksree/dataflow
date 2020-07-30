@@ -10,12 +10,12 @@ steps:
       FROM transactions
       WHERE region='EU'
 output:
-  - dataFrameName: SalesInEurope
+  - dataFrameName: SalesInNorthAmerica
     outputType: Parquet
     outputOptions:
       saveMode: Append
       path: salesinnorthamerica.parquet
-  - dataFrameName: salesineu
+  - dataFrameName: SalesInEurope
     outputType: Parquet
     outputOptions:
       saveMode: Append

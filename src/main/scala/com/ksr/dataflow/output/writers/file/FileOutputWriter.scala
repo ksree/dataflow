@@ -4,7 +4,7 @@ import com.ksr.dataflow.configuration.job.output.File
 import com.ksr.dataflow.exceptions.DataFlowWriteFailedException
 import com.ksr.dataflow.output.Writer
 import org.apache.log4j.LogManager
-import org.apache.spark.sql.{DataFrame, DataFrameWriter, SparkSession}
+import org.apache.spark.sql.{DataFrame, DataFrameWriter, SaveMode, SparkSession}
 
 
 class FileOutputWriter(props: Map[String, Object], outputFile: Option[File]) extends Writer {
@@ -36,6 +36,13 @@ class FileOutputWriter(props: Map[String, Object], outputFile: Option[File]) ext
 
   override def write(dataFrame: DataFrame): Unit = {
     val writer = dataFrame.write
+    writer
+      .format("bigquery")
+      .option("credentialsFile", "C:\\Users\\Kapil.Sreedharan\\secrets\\dataflow\\blade-ai-282114-34167c2579bd.json")
+      .option("temporaryGcsBucket","dataflow_ksree")
+      .mode(SaveMode.Append)
+      .save("dataflow.transactions")
+
     log.info("In parquet writer")
     val currentTimestamp = System.currentTimeMillis()
     fileOutputProperties.format match {
@@ -140,7 +147,10 @@ class FileOutputWriter(props: Map[String, Object], outputFile: Option[File]) ext
       }
       case (None, Some(filePath)) => {
         log.info(s"Writing file to $filePath")
-        writer.save()
+        writer
+          .option("credentialsFile", "C:\\Users\\Kapil.Sreedharan\\secrets\\dataflow\\blade-ai-282114-730fe68ca5cc.json")
+          .option("temporaryGcsBucket","dataflow_ksree")
+          .save("dataset.table")
       }
       case _ => log.error("Failed to write to file. missing some required options")
     }

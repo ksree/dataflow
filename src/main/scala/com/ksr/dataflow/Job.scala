@@ -10,7 +10,8 @@ case class Job(config: Configuration, env: String = "") {
   private val log = LogManager.getLogger(this.getClass)
   val sparkSession: SparkSession = createSparkSession(config.appName)
   val sparkContext: SparkContext = sparkSession.sparkContext
-
+  sparkContext.hadoopConfiguration.set("fs.gs.impl", "com.google.cloud.hadoop.fs.gcs.GoogleHadoopFileSystem")
+  sparkContext.hadoopConfiguration.set("fs.AbstractFileSystem.gs.impl", "com.google.cloud.hadoop.fs.gcs.GoogleHadoopFS")
   log.info(s"these are the config inputs: ${config.inputs}")
   registerDataframes(config.getReaders, sparkSession)
 

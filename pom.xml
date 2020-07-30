@@ -24,6 +24,8 @@
         <abris.version>3.2.1</abris.version>
         <kafka.schema.registry.client.version>5.5.1</kafka.schema.registry.client.version>
         <spark.avro.version>4.0.0</spark.avro.version>
+        <spark.bigquery.version>0.17.0</spark.bigquery.version>
+        <gcs.hadoop.version>hadoop3-2.1.4</gcs.hadoop.version>
     </properties>
 
     <repositories>
@@ -75,6 +77,16 @@
             <artifactId>spark-sql-kafka-0-10_${scala.version}</artifactId>
             <version>${spark.version}</version>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.google.cloud.spark</groupId>
+            <artifactId>spark-bigquery-with-dependencies_${scala.version}</artifactId>
+            <version>0.17.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.cloud.bigdataoss</groupId>
+            <artifactId>gcs-connector</artifactId>
+            <version>${gcs.hadoop.version}</version>
         </dependency>
         <dependency>
             <groupId>io.confluent</groupId>
