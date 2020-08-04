@@ -36,14 +36,6 @@ class FileOutputWriter(props: Map[String, Object], outputFile: Option[File]) ext
 
   override def write(dataFrame: DataFrame): Unit = {
     val writer = dataFrame.write
-    writer
-      .format("bigquery")
-      .option("credentialsFile", "C:\\Users\\Kapil.Sreedharan\\secrets\\dataflow\\blade-ai-282114-34167c2579bd.json")
-      .option("temporaryGcsBucket","dataflow_ksree")
-      .mode(SaveMode.Append)
-      .save("dataflow.transactions")
-
-    log.info("In parquet writer")
     val currentTimestamp = System.currentTimeMillis()
     fileOutputProperties.format match {
       case Some(format) => writer.format(format)
@@ -120,8 +112,6 @@ class FileOutputWriter(props: Map[String, Object], outputFile: Option[File]) ext
         writer.save()
 
         protectFromEmptyOutput(ss, fileOutputProperties.protectFromEmptyOutput, fileOutputProperties.format, filePath, tableName)
-        println(catalog.listTables().collectAsList().toString)
-        println(catalog.listDatabases().collectAsList().toString)
         catalog.tableExists(tableName) match {
           // Quick overwrite (using alter table + refresh instead of drop + write + refresh)
           case true => {

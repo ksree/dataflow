@@ -5,6 +5,7 @@ import com.ksr.dataflow.configuration.job.Configuration
 import com.ksr.dataflow.configuration.transform.{Output, OutputType}
 import com.ksr.dataflow.exceptions.DataFlowException
 import com.ksr.dataflow.output.writers.file.{CSVOutputWriter, FileOutputWriter, JSONOutputWriter, ParquetOutputWriter}
+import com.ksr.dataflow.output.writers.gcp.BigQueryOutputWriter
 import com.ksr.dataflow.output.writers.jdbc.JDBCOutputWriter
 
 
@@ -22,6 +23,7 @@ object WriterFactory {
       case OutputType.JSON => new JSONOutputWriter(metricOutputOptions, output.file)
       case OutputType.Parquet => new ParquetOutputWriter(metricOutputOptions, output.file)
       case OutputType.JDBC => new JDBCOutputWriter(metricOutputOptions, output.jdbc)
+      case OutputType.GCPBigQuery => new BigQueryOutputWriter(metricOutputOptions, output.gcp)
       case _ => throw new DataFlowException(s"Not Supported Writer ${outputConfig.outputType}")
     }
     metricOutputWriter.validateMandatoryArguments(metricOutputOptions.asInstanceOf[Map[String, String]])

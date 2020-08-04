@@ -1,7 +1,8 @@
 package com.ksr.dataflow.configuration.job
 
-import com.ksr.dataflow.configuration.job.output.{File, JDBC, Kafka}
+import com.ksr.dataflow.configuration.job.output.{File, GCS, JDBC, Kafka}
 
 case class Output(jdbc: Option[JDBC] = None,
                   file: Option[File] = None,
-                  kafka: Option[Kafka] = None)
+                  kafka: Option[Kafka] = None,
+                  gcp: Option[GCS] = None)

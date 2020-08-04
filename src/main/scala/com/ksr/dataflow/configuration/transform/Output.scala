@@ -24,7 +24,9 @@ object OutputType extends Enumeration {
   JSON,
   JDBC,
   File,
+  GCPBigQuery,
   Kafka = Value
+
 }
 
 class OutputTypeReference extends TypeReference[OutputType.type]

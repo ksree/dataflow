@@ -6,7 +6,6 @@ import com.fasterxml.jackson.module.scala.DefaultScalaModule
 import com.ksr.dataflow.exceptions.DataFlowInvalidFileException
 import com.ksr.dataflow.transform.Transformation
 import com.ksr.dataflow.utils.FileUtils
-import com.sun.org.apache.xml.internal.security.transforms.TransformationException
 import org.apache.commons.io.FilenameUtils
 import org.apache.log4j.{LogManager, Logger}
 
