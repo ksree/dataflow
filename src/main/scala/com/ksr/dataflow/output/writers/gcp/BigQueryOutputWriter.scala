@@ -1,6 +1,6 @@
 package com.ksr.dataflow.output.writers.gcp
 
-import com.ksr.dataflow.configuration.job.output.{GCS, JDBC}
+import com.ksr.dataflow.configuration.job.output.GCS
 import com.ksr.dataflow.output.Writer
 import org.apache.log4j.LogManager
 import org.apache.spark.sql.{DataFrame, DataFrameWriter, Row, SaveMode}
@@ -13,6 +13,9 @@ class BigQueryOutputWriter(props: Map[String, String], gcsConf: Option[GCS]) ext
   val bqOptions = BigQueryOutputProperties(SaveMode.valueOf(props("saveMode")), props("dbTable"))
 
   override def write(dataFrame: DataFrame): Unit = {
+    dataFrame.sparkSession.sparkContext.hadoopConfiguration.set("fs.gs.impl", "com.google.cloud.hadoop.fs.gcs.GoogleHadoopFileSystem")
+    dataFrame.sparkSession.sparkContext.hadoopConfiguration.set("fs.AbstractFileSystem.gs.impl", "com.google.cloud.hadoop.fs.gcs.GoogleHadoopFS")
+
     val writer: DataFrameWriter[Row] = dataFrame.write.format("bigquery")
     setCredentials(writer)
     setTemporaryBucket(writer)

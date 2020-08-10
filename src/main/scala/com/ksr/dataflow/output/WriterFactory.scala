@@ -15,18 +15,18 @@ object WriterFactory {
       case Some(name) => configuration.outputs.get.get(name).get
       case None => configuration.output.getOrElse(com.ksr.dataflow.configuration.job.Output())
     }
-    val metricOutputOptions = outputConfig.outputOptions.asInstanceOf[Map[String, String]]
+    val transformationOutputOptions = outputConfig.outputOptions.asInstanceOf[Map[String, String]]
 
-    val metricOutputWriter = outputConfig.outputType match {
-      case OutputType.File => new FileOutputWriter(metricOutputOptions, output.file)
-      case OutputType.CSV => new CSVOutputWriter(metricOutputOptions, output.file)
-      case OutputType.JSON => new JSONOutputWriter(metricOutputOptions, output.file)
-      case OutputType.Parquet => new ParquetOutputWriter(metricOutputOptions, output.file)
-      case OutputType.JDBC => new JDBCOutputWriter(metricOutputOptions, output.jdbc)
-      case OutputType.GCPBigQuery => new BigQueryOutputWriter(metricOutputOptions, output.gcp)
+    val transformationOutputWriter = outputConfig.outputType match {
+      case OutputType.File => new FileOutputWriter(transformationOutputOptions, output.file)
+      case OutputType.CSV => new CSVOutputWriter(transformationOutputOptions, output.file)
+      case OutputType.JSON => new JSONOutputWriter(transformationOutputOptions, output.file)
+      case OutputType.Parquet => new ParquetOutputWriter(transformationOutputOptions, output.file)
+      case OutputType.JDBC => new JDBCOutputWriter(transformationOutputOptions, output.jdbc)
+      case OutputType.GCPBigQuery => new BigQueryOutputWriter(transformationOutputOptions, output.gcp)
       case _ => throw new DataFlowException(s"Not Supported Writer ${outputConfig.outputType}")
     }
-    metricOutputWriter.validateMandatoryArguments(metricOutputOptions.asInstanceOf[Map[String, String]])
-    metricOutputWriter
+    transformationOutputWriter.validateMandatoryArguments(transformationOutputOptions.asInstanceOf[Map[String, String]])
+    transformationOutputWriter
   }
 }

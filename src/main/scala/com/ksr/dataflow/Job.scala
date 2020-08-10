@@ -11,7 +11,6 @@ case class Job(config: Configuration, env: String = "") {
   val sparkSession: SparkSession = createSparkSession(config.appName)
   val sparkContext: SparkContext = sparkSession.sparkContext
 
-
   log.info(s"these are the config inputs: ${config.inputs}")
   registerDataframes(config.getReaders, sparkSession)
 

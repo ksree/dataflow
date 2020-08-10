@@ -1,22 +1,12 @@
 steps:
-  - dataFrameName: SalesInNorthAmerica
+  - dataFrameName: transactions
     sql:
       SELECT *
       FROM transactions
-      WHERE region='NA'
-  - dataFrameName: SalesInEurope
-    sql:
-      SELECT *
-      FROM transactions
-      WHERE region='EU'
+
 output:
-  - dataFrameName: SalesInNorthAmerica
-    outputType: Parquet
+  - dataFrameName: transactions
+    outputType: GCPBigQuery
     outputOptions:
       saveMode: Append
-      path: salesinnorthamerica.parquet
-  - dataFrameName: SalesInEurope
-    outputType: Parquet
-    outputOptions:
-      saveMode: Append
-      path: salesineu.parquet
+      dbTable: dataflow.transactions

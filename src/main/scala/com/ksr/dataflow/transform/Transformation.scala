@@ -86,10 +86,11 @@ case class Transformation(configuration: Configuration, transformationDir: Optio
         config.batchMode match {
           case Some(true) => {
             val query = streamWriter.foreachBatch((batchDF: DataFrame, _: Long) => {
-
+              log.info(s"inside foreach batch of $dataFrameName")
+              batchDF.show(10)
               writer.write(batchDF)
             }).start()
-            query.awaitTermination()
+           dataFrame.sparkSession.streams.awaitAnyTermination()
             // Exit this function after streaming is completed
             return
           }

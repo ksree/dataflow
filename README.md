@@ -4,7 +4,9 @@ Dataflow is a software paradigm based on the idea of disconnecting computational
 
 Set the GCP credentials in the env. variable:
 GOOGLE_APPLICATION_CREDENTIALS=C:\Users\Kapil.Sreedharan\secrets\dataflow\blade-ai-282114-34167c2579bd.json
-
+ 
+Create a temporary bucket 
+gsutil mb gs://tmpdataflowbucketkafka
 
 IAC: 
 

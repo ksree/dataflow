@@ -137,10 +137,7 @@ class FileOutputWriter(props: Map[String, Object], outputFile: Option[File]) ext
       }
       case (None, Some(filePath)) => {
         log.info(s"Writing file to $filePath")
-        writer
-          .option("credentialsFile", "C:\\Users\\Kapil.Sreedharan\\secrets\\dataflow\\blade-ai-282114-730fe68ca5cc.json")
-          .option("temporaryGcsBucket","dataflow_ksree")
-          .save("dataset.table")
+        writer.save()
       }
       case _ => log.error("Failed to write to file. missing some required options")
     }
