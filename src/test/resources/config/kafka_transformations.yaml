@@ -10,3 +10,8 @@ output:
     outputOptions:
       saveMode: Append
       dbTable: dataflow.transactions
+  - dataFrameName: transactions
+    outputType: JDBC
+    outputOptions:
+      saveMode: Append
+      dbTable: transactions

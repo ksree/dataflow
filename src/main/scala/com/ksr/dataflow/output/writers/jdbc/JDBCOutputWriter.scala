@@ -22,7 +22,7 @@ class JDBCOutputWriter(props: Map[String, String], jdbcConf: Option[JDBC]) exten
         connectionProperties.put("password", jdbcConf.password)
         connectionProperties.put("driver", jdbcConf.driver)
         var df = dataFrame
-        val writer = df.write.format(jdbcConf.driver)
+        val writer = df.write //.format(jdbcConf.driver)
           .mode(dbOptions.saveMode)
           .jdbc(jdbcConf.connectionUrl, dbOptions.dbTable, connectionProperties)
       case None =>

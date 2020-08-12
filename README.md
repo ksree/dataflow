@@ -14,3 +14,6 @@ Usefull links:
  https://cloud.google.com/solutions/managing-infrastructure-as-code
 https://github.com/antoniocachuan/IaC-boilerplate
 https://medium.com/@routdeepak/writing-to-aws-s3-from-spark-91e85d09724b
+
+https://docs.microsoft.com/en-us/azure/azure-sql/database/single-database-create-quickstart?tabs=azure-portal
+

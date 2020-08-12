@@ -17,14 +17,18 @@ transformations:
 output:
   gcp:
     temporaryGcsBucket: tmpdataflowbucketkafka
-
-explain: true
-logLevel: INFO
-
-
+  jdbc:
+    connectionUrl: jdbc:sqlserver://dataflowazuresql.database.windows.net:1433;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=60;
+    user: dataflow_azureuser
+    password: 789ZSVC4fvMs
+    dbName: dataflow
+    driver: test
 streaming:
   triggerMode: Once
   outputMode: append
-  checkpointLocation: target/test-classes/output/checkpoint
+  checkpointLocation: gs://tmpdataflowbucketkafka/checkpoint/
   batchMode: true
   format: bigquery
+
+explain: true
+logLevel: INFO
