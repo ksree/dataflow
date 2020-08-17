@@ -15,6 +15,7 @@ class JDBCOutputWriter(props: Map[String, String], jdbcConf: Option[JDBC]) exten
   val dbOptions = JDBCOutputProperties(SaveMode.valueOf(props("saveMode")), props("dbTable"))
 
   override def write(dataFrame: DataFrame): Unit = {
+    log.info(s"Writing into JDBC")
     jdbcConf match {
       case Some(jdbcConf) =>
         val connectionProperties = new Properties()
@@ -22,7 +23,8 @@ class JDBCOutputWriter(props: Map[String, String], jdbcConf: Option[JDBC]) exten
         connectionProperties.put("password", jdbcConf.password)
         connectionProperties.put("driver", jdbcConf.driver)
         var df = dataFrame
-        val writer = df.write //.format(jdbcConf.driver)
+        val writer = df.write
+          .format(jdbcConf.driver)
           .mode(dbOptions.saveMode)
           .jdbc(jdbcConf.connectionUrl, dbOptions.dbTable, connectionProperties)
       case None =>

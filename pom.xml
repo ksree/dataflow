@@ -26,12 +26,18 @@
         <spark.avro.version>4.0.0</spark.avro.version>
         <spark.bigquery.version>0.17.0</spark.bigquery.version>
         <gcs.hadoop.version>hadoop3-2.1.4</gcs.hadoop.version>
+        <mssql.version>8.4.0.jre8</mssql.version>
+        <redshift.jdbc.driver.version>1.2.1.1001</redshift.jdbc.driver.version>
     </properties>
 
     <repositories>
         <repository>
             <id>confluent</id>
             <url>https://packages.confluent.io/maven/</url>
+        </repository>
+        <repository>
+            <id>redshift</id>
+            <url>http://redshift-maven-repository.s3-website-us-east-1.amazonaws.com/release</url>
         </repository>
     </repositories>
 
@@ -128,6 +134,17 @@
             <artifactId>abris_${scala.version}</artifactId>
             <version>${abris.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.microsoft.sqlserver</groupId>
+            <artifactId>mssql-jdbc</artifactId>
+            <version>${mssql.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.amazon.redshift</groupId>
+            <artifactId>redshift-jdbc42</artifactId>
+            <version>${redshift.jdbc.driver.version}</version>
+        </dependency>
+
         <dependency>
             <groupId>org.scalatest</groupId>
             <artifactId>scalatest_${scala.version}</artifactId>

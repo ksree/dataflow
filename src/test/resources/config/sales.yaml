@@ -1,21 +1,29 @@
 inputs:
   sales:
     file:
-         # The path of the file, you can add multiple files with ,
-         path: src/test/resources/data/sales/
-         format: csv
-         # Optional, define custom schema via a json schema file (https://json-schema.org/)
-         #schemaPath: schema/schema.json
-         # Optional send any spark supported option to the reader
-         options:
-           quoteAll: false
+      path: src/test/resources/data/sales/
+      format: csv
+      options:
+        quoteAll: false
+
 transformations:
   - src/test/resources/config/sales_transformations.yaml
 
 output:
   file:
     dir: target/test-classes/output/sales/
-
+  jdbc:
+    connectionUrl: jdbc:sqlserver://dataflowazuresql.database.windows.net:1433;database=dataflow
+    user: dataflow_azureuser
+    password: 789ZSVC4fvMs
+    driver: com.microsoft.sqlserver.jdbc.SQLServerDriver
+  jdbc:
+    connectionUrl: jdbc:redshift://redshift-cluster.ce0s1cnqwquk.us-east-2.redshift.amazonaws.com:5439/dataflow
+    user: dataflow_awsuser
+    password: S1YQf8kdmNE4
+    driver: com.amazon.redshift.jdbc42.Driver
+  gcp:
+    temporaryGcsBucket: tmpdataflowbucketkafka
 # If set to true, triggers Explain before saving
 explain: true
 

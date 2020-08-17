@@ -23,3 +23,23 @@ output:
       saveMode: Overwrite
       path: salesInUK.parquet
       tableName: salesInUKHiveExternal
+  - dataFrameName: salesInUS
+    outputType: JDBC
+    outputOptions:
+      saveMode: Append
+      dbTable: salesInUS
+  - dataFrameName: salesInUK
+    outputType: JDBC
+    outputOptions:
+      saveMode: Append
+      dbTable: salesInUK
+  - dataFrameName: salesInUS
+    outputType: GCPBigQuery
+    outputOptions:
+      saveMode: Append
+      dbTable: dataflow.salesInUS
+  - dataFrameName: salesInUK
+    outputType: GCPBigQuery
+    outputOptions:
+      saveMode: Append
+      dbTable: dataflow.salesInUK
