@@ -1,6 +1,6 @@
 package com.ksr.dataflow.configuration.transform
 
-import java.io.{File, FileNotFoundException}
+import java.io.{File, FileNotFoundException, InputStream}
 
 import com.fasterxml.jackson.module.scala.DefaultScalaModule
 import com.ksr.dataflow.exceptions.DataFlowInvalidFileException
@@ -31,12 +31,13 @@ object Configuration {
     }*/
     log.info(s"path = $path")
 
-    val fileName = getClass.getClassLoader.getResource(path).getPath
-    log.info(s"fileName = $fileName")
+    val inputStream = getClass.getClassLoader.getResourceAsStream(path)
+  /*  log.info(s"fileName = $fileName")
     val metricDir: Option[File] = Some(new File(fileName).getParentFile)
-    log.info(s"Initializing transformation file $fileName")
+    log.info(s"Initializing transformation file $fileName")*/
     try {
-      val metricConfig: Configuration = parseFile(fileName)
+      val metricDir: Option[File] = None
+      val metricConfig: Configuration = parseFile(inputStream)
       Transformation(metricConfig, metricDir, FilenameUtils.removeExtension(path))
     } catch {
       case e: FileNotFoundException => throw e
@@ -44,13 +45,13 @@ object Configuration {
     }
   }
 
-  private def parseFile(fileName: String): Configuration = {
-    FileUtils.getObjectMapperByExtension(fileName) match {
+  private def parseFile(inputStream: InputStream): Configuration = {
+    FileUtils.getObjectMapperByExtension("yaml") match {
       case Some(mapper) => {
         mapper.registerModule(DefaultScalaModule)
-        mapper.readValue(new File(fileName), classOf[Configuration])
+        mapper.readValue(inputStream, classOf[Configuration])
       }
-      case None => throw DataFlowInvalidFileException(s"Unknown extension for file $fileName")
+      case None => throw DataFlowInvalidFileException(s"Unknown extension for file ")
     }
   }
 }
