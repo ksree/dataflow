@@ -12,7 +12,7 @@ inputs:
       schemaRegistryUrl: https://psrc-lgy7n.europe-west3.gcp.confluent.cloud
 
 transformations:
-  - src/test/resources/config/kafka_transformations.yaml
+  - /config/kafka_transformations.yaml
 
 output:
   gcp:

@@ -23,20 +23,22 @@ object Configuration {
   }
 
   def parse(path: String): Transformation = {
-    val hadoopPath = FileUtils.getHadoopPath(path)
+/*    val hadoopPath = FileUtils.getHadoopPath(path)
     val fileName = hadoopPath.getName
     val metricDir = FileUtils.isLocalFile(path) match {
       case true => Option(new File(path).getParentFile)
       case false => None
-    }
-
-    log.info(s"Initializing Metric file $fileName")
+    }*/
+    val fileName = getClass.getResource(path).getPath
+    println(s"fileName = $fileName")
+    val metricDir: Option[File] = Some(new File(fileName).getParentFile)
+    log.info(s"Initializing transformation file $fileName")
     try {
-      val metricConfig = parseFile(path)
-      Transformation(metricConfig, metricDir, FilenameUtils.removeExtension(fileName))
+      val metricConfig: Configuration = parseFile(fileName)
+      Transformation(metricConfig, metricDir, FilenameUtils.removeExtension(path))
     } catch {
       case e: FileNotFoundException => throw e
-      case e: Exception => throw DataFlowInvalidFileException(s"Failed to parse metric file $fileName", e)
+      case e: Exception => throw DataFlowInvalidFileException(s"Failed to parse metric file $path", e)
     }
   }
 
@@ -44,7 +46,7 @@ object Configuration {
     FileUtils.getObjectMapperByExtension(fileName) match {
       case Some(mapper) => {
         mapper.registerModule(DefaultScalaModule)
-        mapper.readValue(FileUtils.readConfigurationFile(fileName), classOf[Configuration])
+        mapper.readValue(new File(fileName), classOf[Configuration])
       }
       case None => throw DataFlowInvalidFileException(s"Unknown extension for file $fileName")
     }

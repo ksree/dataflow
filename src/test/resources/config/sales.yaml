@@ -7,7 +7,7 @@ inputs:
         quoteAll: false
 
 transformations:
-  - src/test/resources/config/sales_transformations.yaml
+  - /config/sales_transformations.yaml
 
 output:
   file:
