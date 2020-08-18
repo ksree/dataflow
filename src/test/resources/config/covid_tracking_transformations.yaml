@@ -1,0 +1,45 @@
+steps:
+  - dataFrameName: casesInUS
+    sql:
+      SELECT *
+      FROM covid
+      WHERE COUNTRIES_AND_TERRITORIES='United_States_of_America'
+  - dataFrameName: casesInCanada
+    sql:
+      SELECT *
+      FROM covid
+      WHERE COUNTRIES_AND_TERRITORIES='Canada'
+output:
+  - dataFrameName: casesInUS
+    outputType: Parquet
+    outputOptions:
+      saveMode: Overwrite
+      path: casesInUS.parquet
+      tableName: casesInUSHiveExternal
+      protectFromEmptyOutput: true
+  - dataFrameName: casesInCanada
+    outputType: Parquet
+    outputOptions:
+      saveMode: Overwrite
+      path: casesInCanada.parquet
+      tableName: casesInCanadaHiveExternal
+  - dataFrameName: casesInUS
+    outputType: JDBC
+    outputOptions:
+      saveMode: Append
+      dbTable: casesInUS
+  - dataFrameName: casesInCanada
+    outputType: JDBC
+    outputOptions:
+      saveMode: Append
+      dbTable: casesInCanada
+  - dataFrameName: casesInUS
+    outputType: GCPBigQuery
+    outputOptions:
+      saveMode: Append
+      dbTable: dataflow.casesInUS
+  - dataFrameName: casesInCanada
+    outputType: GCPBigQuery
+    outputOptions:
+      saveMode: Append
+      dbTable: dataflow.casesInCanada

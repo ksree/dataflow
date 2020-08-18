@@ -28,6 +28,8 @@
         <gcs.hadoop.version>hadoop3-2.1.4</gcs.hadoop.version>
         <mssql.version>8.4.0.jre8</mssql.version>
         <redshift.jdbc.driver.version>1.2.1.1001</redshift.jdbc.driver.version>
+        <hadoop.azure.version>2.7.3</hadoop.azure.version>
+        <azure.storage.version>8.6.5</azure.storage.version>
     </properties>
 
     <repositories>
@@ -143,6 +145,17 @@
             <groupId>com.amazon.redshift</groupId>
             <artifactId>redshift-jdbc42</artifactId>
             <version>${redshift.jdbc.driver.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.hadoop</groupId>
+            <artifactId>hadoop-azure</artifactId>
+            <version>${hadoop.azure.version}</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/com.microsoft.azure/azure-storage -->
+        <dependency>
+            <groupId>com.microsoft.azure</groupId>
+            <artifactId>azure-storage</artifactId>
+            <version>${azure.storage.version}</version>
         </dependency>
 
         <dependency>

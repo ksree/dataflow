@@ -9,6 +9,7 @@ import org.apache.spark.sql.SparkSession
 case class Job(config: Configuration, env: String = "") {
   private val log = LogManager.getLogger(this.getClass)
   val sparkSession: SparkSession = createSparkSession(config.appName)
+
   val sparkContext: SparkContext = sparkSession.sparkContext
 
   log.info(s"these are the config inputs: ${config.inputs}")
