@@ -29,8 +29,10 @@ object Configuration {
       case true => Option(new File(path).getParentFile)
       case false => None
     }*/
-    val fileName = getClass.getResource(path).getPath
-    println(s"fileName = $fileName")
+    log.info(s"path = $path")
+
+    val fileName = getClass.getClassLoader.getResource(path).getPath
+    log.info(s"fileName = $fileName")
     val metricDir: Option[File] = Some(new File(fileName).getParentFile)
     log.info(s"Initializing transformation file $fileName")
     try {

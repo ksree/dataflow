@@ -13,7 +13,7 @@ inputs:
         quoteAll: false
 
 transformations:
-  - /config/covid_tracking_transformations.yaml
+  - config/covid_tracking_transformations.yaml
 
 output:
   file:
