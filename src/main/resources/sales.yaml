@@ -1,0 +1,37 @@
+inputs:
+  sales:
+    file:
+      path: src/test/resources/data/sales/
+      format: csv
+      options:
+        quoteAll: false
+
+transformations:
+  - src/test/resources/config/sales_transformations.yaml
+
+output:
+  file:
+    dir: target/test-classes/output/sales/
+  jdbc:
+    connectionUrl: jdbc:sqlserver://dataflowazuresql.database.windows.net:1433;database=dataflow
+    user: dataflow_azureuser
+    password: 789ZSVC4fvMs
+    driver: com.microsoft.sqlserver.jdbc.SQLServerDriver
+  jdbc:
+    connectionUrl: jdbc:redshift://redshift-cluster.ce0s1cnqwquk.us-east-2.redshift.amazonaws.com:5439/dataflow
+    user: dataflow_awsuser
+    password: S1YQf8kdmNE4
+    driver: com.amazon.redshift.jdbc42.Driver
+  gcp:
+    temporaryGcsBucket: tmpdataflowbucketkafka
+# If set to true, triggers Explain before saving
+explain: true
+
+# Set Log Level : ALL, DEBUG, ERROR, FATAL, INFO, OFF, TRACE, WARN
+logLevel: WARN
+
+# Set Application Name to have app name prefix in spark instrumentation counters
+appName: TransactionsApp
+
+# Shows a Preview of the output
+showPreviewLines: 5

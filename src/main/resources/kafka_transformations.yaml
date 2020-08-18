@@ -1,0 +1,17 @@
+steps:
+  - dataFrameName: transactions
+    sql:
+      SELECT *
+      FROM transactions
+
+outputs:
+  - dataFrameName: transactions
+    outputType: JDBC
+    outputOptions:
+      saveMode: Append
+      dbTable: transactions
+  - dataFrameName: transactions
+    outputType: GCPBigQuery
+    outputOptions:
+      saveMode: Append
+      dbTable: dataflow.transactions
