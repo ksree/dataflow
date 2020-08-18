@@ -1,0 +1,38 @@
+appName: CovidCaseTracker
+
+inputs:
+  covid:
+    azure:
+      storageType: AzureBlobStorage
+      containerName: public
+      storageAccountName: pandemicdatalake
+      blob_sas_token: ""
+      blob_relative_path: curated/covid-19/ecdc_cases/latest/ecdc_cases.csv
+      format: csv
+      options:
+        quoteAll: false
+
+transformations:
+  - covid_tracking_transformations.yaml
+
+output:
+  file:
+    dir: gs://dataflow_covid_data
+  jdbc:
+    connectionUrl: jdbc:sqlserver://dataflowazuresql.database.windows.net:1433;database=dataflow
+    user: dataflow_azureuser
+    password: 789ZSVC4fvMs
+    driver: com.microsoft.sqlserver.jdbc.SQLServerDriver
+  jdbc:
+    connectionUrl: jdbc:redshift://redshift-cluster.ce0s1cnqwquk.us-east-2.redshift.amazonaws.com:5439/dataflow
+    user: dataflow_awsuser
+    password: S1YQf8kdmNE4
+    driver: com.amazon.redshift.jdbc42.Driver
+  gcp:
+    temporaryGcsBucket: tmpdataflowbucketkafka
+
+explain: true
+
+logLevel: WARN
+
+showPreviewLines: 5
