@@ -6,7 +6,7 @@ import com.ksr.dataflow.configuration.job.Configuration
 import org.apache.spark.sql.streaming.DataStreamWriter
 import org.scalatest.FlatSpec
 
-class RunKafkaTest extends FlatSpec {
+class RunKafkaIntegrationTest extends FlatSpec {
 
   val path: String = getClass.getResource("/config/kafka.yaml").getPath
   val configuration: Configuration = Configuration(path)

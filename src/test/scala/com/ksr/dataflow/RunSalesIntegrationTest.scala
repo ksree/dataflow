@@ -3,7 +3,7 @@ package com.ksr.dataflow
 import com.ksr.dataflow.configuration.job.Configuration
 import org.scalatest.FlatSpec
 
-class RunCSVTest extends FlatSpec {
+class RunSalesIntegrationTest extends FlatSpec {
 
   val path: String = getClass.getResource("/config/sales.yaml").getPath
   val configuration: Configuration = Configuration(path)

@@ -3,7 +3,7 @@ package com.ksr.dataflow
 import com.ksr.dataflow.configuration.job.Configuration
 import org.scalatest.FlatSpec
 
-class RunAzureBlobStorageSourceTest extends FlatSpec {
+class RunCovidCasesIntegrationTest extends FlatSpec {
 
   val path: String = getClass.getResource("/config/covid_tracking.yaml").getPath
   val configuration: Configuration = Configuration(path)
