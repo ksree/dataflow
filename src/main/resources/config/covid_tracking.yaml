@@ -17,7 +17,7 @@ transformations:
 
 output:
   file:
-    dir: gs://dataflow_covid_data
+    dir: gs://<BUCKET_NAME>
   jdbc:
     connectionUrl: jdbc:sqlserver://dataflowazuresql.database.windows.net:1433;database=dataflowsqldatabase
     user: 4dm1n157r470r
@@ -29,7 +29,7 @@ output:
     password: OdfdPdeanfioefn232dedw
     driver: com.amazon.redshift.jdbc42.Driver
   gcp:
-    temporaryGcsBucket: kapilsreed12-1dataflow_file_output_store
+    temporaryGcsBucket: <BUCKET_NAME>
 
 explain: true
 

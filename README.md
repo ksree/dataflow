@@ -23,14 +23,6 @@ chmod 775 ~/.confluent/kafka_cloud.config
 Create a temporary bucket 
 gsutil mb gs://tmpdataflowbucketkafka
 
-IAC: 
-
-Usefull links:
- https://cloud.google.com/solutions/managing-infrastructure-as-code
-https://github.com/antoniocachuan/IaC-boilerplate
-https://medium.com/@routdeepak/writing-to-aws-s3-from-spark-91e85d09724b
-
-https://docs.microsoft.com/en-us/azure/azure-sql/database/single-database-create-quickstart?tabs=azure-portal
 
 Install openjdk 1.8
 sudo apt-get install openjdk-8-jre
@@ -38,4 +30,12 @@ sudo update-alternatives --config java
 #select java-8-openjdk
 Set JAVA_HOME
 export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
-mvn clean install
+mvn clean install -DskipTests
+
+gcloud dataproc jobs submit spark \
+--cluster=dataflowcluster  \
+--region=us-central1 \
+--files /home/bladeaico/dataflow/src/main/resources/config/covid_tracking.yaml \
+--class=com.ksr.dataflow.Run \
+--jars=/home/bladeaico/dataflow/target/dataflow-1.0-SNAPSHOT.jar,gs://spark-lib/bigquery/spark-bigquery-latest.jar \
+-- covid_tracking.yaml
