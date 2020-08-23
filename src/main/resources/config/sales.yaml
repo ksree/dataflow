@@ -23,7 +23,7 @@ output:
     password: S1YQf8kdmNE4
     driver: com.amazon.redshift.jdbc42.Driver
   gcp:
-    temporaryGcsBucket: tmpdataflowbucketkafka
+    temporaryGcsBucket: dataflow_file_output_store
 # If set to true, triggers Explain before saving
 explain: true
 
