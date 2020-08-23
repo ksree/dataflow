@@ -19,17 +19,17 @@ output:
   file:
     dir: gs://dataflow_covid_data
   jdbc:
-    connectionUrl: jdbc:sqlserver://dataflowazuresql.database.windows.net:1433;database=dataflow
-    user: dataflow_azureuser
-    password: 789ZSVC4fvMs
+    connectionUrl: jdbc:sqlserver://dataflowazuresql.database.windows.net:1433;database=dataflowsqldatabase
+    user: 4dm1n157r470r
+    password: 4-v3ry-53cr37-p455w0rd
     driver: com.microsoft.sqlserver.jdbc.SQLServerDriver
   jdbc:
     connectionUrl: jdbc:redshift://redshift-cluster.ce0s1cnqwquk.us-east-2.redshift.amazonaws.com:5439/dataflow
-    user: dataflow_awsuser
-    password: S1YQf8kdmNE4
+    user: adm1n157r470r
+    password: OdfdPdeanfioefn232dedw
     driver: com.amazon.redshift.jdbc42.Driver
   gcp:
-    temporaryGcsBucket: tmpdataflowbucketkafka
+    temporaryGcsBucket: kapilsreed12-1dataflow_file_output_store
 
 explain: true
 
