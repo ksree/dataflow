@@ -24,7 +24,7 @@ output:
     password: 4-v3ry-53cr37-p455w0rd
     driver: com.microsoft.sqlserver.jdbc.SQLServerDriver
   jdbc:
-    connectionUrl: jdbc:redshift://redshift-cluster.ce0s1cnqwquk.us-east-2.redshift.amazonaws.com:5439/dataflow
+    connectionUrl: jdbc:redshift://dataflow-redshift-cluster.ce0s1cnqwquk.us-east-2.redshift.amazonaws.com:5439/dataflow
     user: adm1n157r470r
     password: OdfdPdeanfioefn232dedw
     driver: com.amazon.redshift.jdbc42.Driver
