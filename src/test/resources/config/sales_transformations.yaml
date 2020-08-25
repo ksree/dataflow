@@ -23,33 +23,3 @@ output:
       saveMode: Overwrite
       path: salesInUK.parquet
       tableName: salesInUKHiveExternal
-  - dataFrameName: salesInUS
-    outputType: AzureSQL
-    outputOptions:
-      saveMode: Append
-      dbTable: salesInUS
-  - dataFrameName: salesInUK
-    outputType: AzureSQL
-    outputOptions:
-      saveMode: Append
-      dbTable: salesInUK
-  - dataFrameName: salesInUS
-    outputType: AWSRedshift
-    outputOptions:
-      saveMode: Append
-      dbTable: salesInUS
-  - dataFrameName: salesInUK
-    outputType: AWSRedshift
-    outputOptions:
-      saveMode: Append
-      dbTable: salesInUK
-  - dataFrameName: salesInUS
-    outputType: GCPBigQuery
-    outputOptions:
-      saveMode: Append
-      dbTable: dataflow_hybrid_cloud.salesInUS
-  - dataFrameName: salesInUK
-    outputType: GCPBigQuery
-    outputOptions:
-      saveMode: Append
-      dbTable: dataflow_hybrid_cloud.salesInUK

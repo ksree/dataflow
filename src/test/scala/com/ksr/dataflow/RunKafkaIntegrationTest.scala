@@ -17,7 +17,7 @@ class RunKafkaIntegrationTest extends FlatSpec {
     assert(session.env === "test")
     assert(session.config.appName.get === "KafkaApp")
   }
-
+  
   "runTransformations" should "run the transformations specified in the transformations.yaml" in {
     Run.runTransformations(session)
   }
