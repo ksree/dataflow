@@ -25,6 +25,8 @@ object OutputType extends Enumeration {
   JDBC,
   File,
   GCPBigQuery,
+  AzureSQL,
+  AWSRedshift,
   Kafka = Value
 
 }

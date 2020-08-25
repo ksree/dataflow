@@ -18,12 +18,12 @@ transformations:
 output:
   file:
     dir: gs://<BUCKET_NAME>
-  jdbc:
+  aws:
     connectionUrl: jdbc:sqlserver://dataflowazuresql.database.windows.net:1433;database=dataflowsqldatabase
     user: 4dm1n157r470r
     password: 4-v3ry-53cr37-p455w0rd
     driver: com.microsoft.sqlserver.jdbc.SQLServerDriver
-  jdbc:
+  azure:
     connectionUrl: jdbc:redshift://dataflow-redshift-cluster.ce0s1cnqwquk.us-east-2.redshift.amazonaws.com:5439/dataflow
     user: adm1n157r470r
     password: OdfdPdeanfioefn232dedw

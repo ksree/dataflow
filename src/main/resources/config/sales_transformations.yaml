@@ -24,12 +24,22 @@ output:
       path: salesInUK.parquet
       tableName: salesInUKHiveExternal
   - dataFrameName: salesInUS
-    outputType: JDBC
+    outputType: AzureSQL
     outputOptions:
       saveMode: Append
       dbTable: salesInUS
   - dataFrameName: salesInUK
-    outputType: JDBC
+    outputType: AzureSQL
+    outputOptions:
+      saveMode: Append
+      dbTable: salesInUK
+  - dataFrameName: salesInUS
+    outputType: AWSRedshift
+    outputOptions:
+      saveMode: Append
+      dbTable: salesInUS
+  - dataFrameName: salesInUK
+    outputType: AWSRedshift
     outputOptions:
       saveMode: Append
       dbTable: salesInUK
@@ -37,9 +47,9 @@ output:
     outputType: GCPBigQuery
     outputOptions:
       saveMode: Append
-      dbTable: dataflow.salesInUS
+      dbTable: dataflow_hybrid_cloud.salesInUS
   - dataFrameName: salesInUK
     outputType: GCPBigQuery
     outputOptions:
       saveMode: Append
-      dbTable: dataflow.salesInUK
+      dbTable: dataflow_hybrid_cloud.salesInUK

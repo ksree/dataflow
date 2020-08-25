@@ -24,12 +24,22 @@ output:
       path: casesInCanada.parquet
       tableName: casesInCanadaHiveExternal
   - dataFrameName: casesInUS
-    outputType: JDBC
+    outputType: AWSRedshift
     outputOptions:
       saveMode: Append
       dbTable: casesInUS
   - dataFrameName: casesInCanada
-    outputType: JDBC
+    outputType: AWSRedshift
+    outputOptions:
+      saveMode: Append
+      dbTable: casesInCanada
+  - dataFrameName: casesInUS
+    outputType: AzureSQL
+    outputOptions:
+      saveMode: Append
+      dbTable: casesInUS
+  - dataFrameName: casesInCanada
+    outputType: AzureSQL
     outputOptions:
       saveMode: Append
       dbTable: casesInCanada

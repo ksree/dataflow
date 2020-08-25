@@ -23,6 +23,8 @@ object WriterFactory {
       case OutputType.JSON => new JSONOutputWriter(transformationOutputOptions, output.file)
       case OutputType.Parquet => new ParquetOutputWriter(transformationOutputOptions, output.file)
       case OutputType.JDBC => new JDBCOutputWriter(transformationOutputOptions, output.jdbc)
+      case OutputType.AzureSQL => new JDBCOutputWriter(transformationOutputOptions, output.azure)
+      case OutputType.AWSRedshift => new JDBCOutputWriter(transformationOutputOptions, output.aws)
       case OutputType.GCPBigQuery => new BigQueryOutputWriter(transformationOutputOptions, output.gcp)
       case _ => throw new DataFlowException(s"Not Supported Writer ${outputConfig.outputType}")
     }
