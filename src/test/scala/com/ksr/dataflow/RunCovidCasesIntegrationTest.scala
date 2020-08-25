@@ -1,8 +1,9 @@
 package com.ksr.dataflow
 
 import com.ksr.dataflow.configuration.job.Configuration
-import org.scalatest.FlatSpec
+import org.scalatest.{FlatSpec, Ignore}
 
+@Ignore
 class RunCovidCasesIntegrationTest extends FlatSpec {
 
   val path: String = getClass.getResource("/config/covid_tracking.yaml").getPath
