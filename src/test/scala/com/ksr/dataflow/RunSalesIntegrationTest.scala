@@ -1,8 +1,9 @@
 package com.ksr.dataflow
 
 import com.ksr.dataflow.configuration.job.Configuration
-import org.scalatest.FlatSpec
+import org.scalatest.{FlatSpec, Ignore}
 
+@Ignore
 class RunSalesIntegrationTest extends FlatSpec {
 
   val path: String = getClass.getResource("/config/sales.yaml").getPath
