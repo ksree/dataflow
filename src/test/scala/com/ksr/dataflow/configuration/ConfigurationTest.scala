@@ -9,6 +9,7 @@ class ConfigurationTest extends FlatSpec {
 
   "A yaml config file" should "generate a Configuration object" in {
     val configuration: Configuration = Configuration(path)
-
+    assert(configuration.appName.get === "SalesApp")
+    assert(configuration.output.get.file.get.dir === "target/test-classes/output/sales/")
   }
 }

@@ -20,7 +20,7 @@ explain: true
 logLevel: WARN
 
 # Set Application Name to have app name prefix in spark instrumentation counters
-appName: TransactionsApp
+appName: SalesApp
 
 # Shows a Preview of the output
 showPreviewLines: 5
