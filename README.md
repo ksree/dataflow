@@ -4,14 +4,18 @@
  
  Is a framework that lets you easily create spark ETL jobs  using simple configuration files(YAML/JSON)
 
+**Prerequisite**
+
+Requires JDK8 
+
 **How to create a new ELT job using dataflow?**
 
 To create a new ETL job, define 2 YAML configuration. 
 
 The first configuration  file consists the following information :
-  - Input sources(eg. File, Azure, Kafka, JDBC)
+  - Input sources(eg. CSV,JSON, parquet, Azure, Kafka, JDBC)
   - Transformation definition file
-  - Output sinks(eg. )
+  - Output sinks(eg. CSV, JSON, parquet, Redshift, JDBC, Kafka, GCS, Azure)
 
 For example a configuration that reads form input source Azure Blob storage, defines a transformation file
  and wirtes to an Output sink is as follows:
@@ -66,11 +70,15 @@ output:
       saveMode: Append
       dbTable: dataflow.casesInCanada
 ```
+**Running test cases:**
 
 For more samples checkout out [test configs](src/test/resources/config)
+
+
 
 **Acknowlegement**
 
 This project is build on top of a  lightweight version of the amazing opensource spark ETL framework [metorikku](https://github.com/YotpoLtd/metorikku)
 Check it out if you require more advanced features like instrumentation. 
+
  
