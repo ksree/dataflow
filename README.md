@@ -70,7 +70,7 @@ output:
       saveMode: Append
       dbTable: dataflow.casesInCanada
 ```
-**Running test cases:**
+**Running the test cases:**
 
 For more samples checkout out [test configs](src/test/resources/config)
 
@@ -79,6 +79,6 @@ For more samples checkout out [test configs](src/test/resources/config)
 **Acknowlegement**
 
 This project is build on top of a  lightweight version of the amazing opensource spark ETL framework [metorikku](https://github.com/YotpoLtd/metorikku).
-Check it out if you require more advanced features like instrumentation. 
+Check it out if you require more advanced features like instrumentation.
 
  
