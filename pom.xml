@@ -27,7 +27,7 @@
         <spark.bigquery.version>0.17.0</spark.bigquery.version>
         <gcs.hadoop.version>hadoop3-2.1.4</gcs.hadoop.version>
         <mssql.version>8.4.0.jre8</mssql.version>
-        <redshift.jdbc.driver.version>1.2.1.1001</redshift.jdbc.driver.version>
+        <redshift.jdbc.driver.version>2.1.0.8</redshift.jdbc.driver.version>
         <hadoop.azure.version>2.7.3</hadoop.azure.version>
         <azure.storage.version>8.6.5</azure.storage.version>
         <maven.shade.version>3.2.1</maven.shade.version>
